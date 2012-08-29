@@ -12,7 +12,7 @@
   <script type=\"text/javascript\">
 
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-15328874-7']);
+        _gaq.push(['_setAccount', 'UA-34425817-1']);
         _gaq.push(['_trackPageview']);
 
         (function() {
@@ -22,6 +22,17 @@
         })();
 
   </script>")
+
+(def tweet "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://reading-time.samrat.me\" data-text=\"Find out how long you'll take it to read an article or add &quot;Reading time&quot; to your site!\" data-related=\"samratmansingh\">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"//platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>")
+
+(def fb-like "<div id=\"fb-root\"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = \"//connect.facebook.net/en_US/all.js#xfbml=1\";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>")
 
 (defpartial template [& content]
   (html5
@@ -35,7 +46,8 @@
    [:body
     [:div.container.clearfix
      [:header.sixteen.columns ( link-to "/" [:h1 "Reading Time"] )
-      [:h4 [:strong "Reading Time"] " estimates how long you'll take to read an online article. It has an " (link-to "/api?url=http://samrat.me/blog/2011/08/newsblur-an-awesome-alternative-to-google-reader" "API too") "(so you can put it on your blog!)"]]
+      [:h4 [:strong "Reading Time"] " estimates how long you'll take to read an online article. It has an " (link-to "/api?url=http://samrat.me/blog/2011/08/newsblur-an-awesome-alternative-to-google-reader" "API too") "(so you can put it on your blog!)"]
+      tweet fb-like]
      [:div.sixteen.columns content]
      [:footer.sixteen.columns
       [:p
