@@ -10,10 +10,15 @@
         hiccup.core hiccup.form))
 
 (defn extract-article [url]
-  (extract-text (slurp url)))
+  (if (= (subs url 0 4) "http")
+    (extract-text (slurp url))
+    (extract-text (slurp (str "http://" url)))))
+
 
 (defn get-title [url]
-  (extract-title (slurp url)))
+  (if (= (subs url 0 4) "http")
+    (extract-title(slurp url))
+    (extract-title (slurp (str "http://" url)))))
 
 (defn count-words [text]
   (count (split text #"\s+")))
