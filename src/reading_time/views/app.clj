@@ -14,7 +14,6 @@
     (extract-text (slurp url))
     (extract-text (slurp (str "http://" url)))))
 
-
 (defn get-title [url]
   (if (= (subs url 0 4) "http")
     (extract-title(slurp url))
@@ -33,20 +32,24 @@
     (str (int minutes) " minutes, " (int (* 60 (rem minutes (int minutes)))) " seconds")) 
   )
 
-(defpage "/" {:keys [time title]}
+(defpage [:get "/"] {:keys [url]}
+  (if url (let [title (get-title url)
+        minutes  (float (/ (count-words-from-url url) 250))
+        time    (prettify-minutes minutes)]
+    (common/template
+     (if-not time [:h4 "Give it a try. Put in an article URL below."] [:h4 "Article URL:"] )
+     (form-to [:get "/"]
+              (text-field "url")
+              (submit-button "Submit"))
+
+     (if time [:h4 [:strong title] " will take approximately " [:u time] " to read."])
+     ))
+
   (common/template
-   (if-not time [:h4 "Give it a try. Put in an article URL below."] [:h4 "Article URL:"] )
-   (form-to [:post "/"]
-            (text-field "url")
-            (submit-button "Submit"))
-
-   (if time [:h4 [:strong title] " will take approximately " [:u time] " to read."])
-   ))
-
-(defpage [:post "/"] {:keys [url]}
-  (noir.core/render "/"
-                    {:time (prettify-minutes (float (/ (count-words-from-url url) 250)) )
-                     :title (get-title url)}))
+     [:h4 "Give it a try. Put in an article URL below."]
+     (form-to [:get "/"]
+              (text-field "url")
+              (submit-button "Submit")))))
 
 (defpage [:get "/api"] {:keys [url]}
   (let [minutes (float (/ (count-words-from-url url) 250))]
