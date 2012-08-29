@@ -34,6 +34,8 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>")
 
+(def fb-button "<div class=\"fb-like\" data-href=\"http://reading-time.herokuapp.com/\" data-send=\"false\" data-layout=\"button_count\" data-width=\"450\" data-show-faces=\"false\"></div>")
+
 (defpartial template [& content]
   (html5
    [:head
@@ -44,10 +46,11 @@
     (include-js "/js/less.js")
     [:title "Reading Time"]]
    [:body
+    fb-like
     [:div.container.clearfix
      [:header.sixteen.columns ( link-to "/" [:h1 "Reading Time"] )
       [:h4 [:strong "Reading Time"] " estimates how long you'll take to read an online article. It has an " (link-to "/api?url=http://samrat.me/blog/2011/08/newsblur-an-awesome-alternative-to-google-reader" "API too") "(so you can put it on your blog!)"]
-      tweet fb-like]
+      tweet fb-button]
      [:div.sixteen.columns content]
      [:footer.sixteen.columns
       [:p
