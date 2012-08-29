@@ -23,7 +23,9 @@
 (defn prettify-minutes
   "Convert 1.5 into '1 minutes, 30 seconds"
   [minutes]
-  (str (int minutes) " minutes, " (int (* 60 (rem minutes (int minutes)))) " seconds")
+  (if (< minutes 1)
+    (str (* 60 minutes) " seconds")
+    (str (int minutes) " minutes, " (int (* 60 (rem minutes (int minutes)))) " seconds")) 
   )
 
 (defpage "/" {:keys [time title]}
