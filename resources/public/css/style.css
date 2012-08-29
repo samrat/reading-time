@@ -1,0 +1,114 @@
+.group:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+html {
+  overflow-y: scroll;
+}
+header {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 48px !important;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ddd;
+}
+header a {
+  text-decoration: none;
+}
+footer {
+  text-align: center;
+  border-top: 2px solid #ddd;
+  padding-top: 16px;
+  font-style: italic;
+  font-size: 15px;
+  font-family: Palatino, Georgia, serif;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  text-decoration: underline;
+}
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+  text-decoration: underline;
+}
+input#url {
+  width: 50%;
+}
+section.message {
+  border-bottom: 2px solid #ddd;
+  margin-top: -26px;
+  margin-bottom: 44px;
+}
+.page-title {
+  position: relative;
+  margin-bottom: 16px;
+}
+.page-title .profile {
+  position: absolute;
+  top: -42px;
+  right: 2px;
+}
+.page-title .profile form {
+  display: inline;
+}
+.page-title .profile form input {
+  margin-left: 12px;
+}
+li.show {
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+li.show img {
+  float: left;
+  margin-right: 20px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+}
+li.show .latest {
+  margin-top: -6px;
+  margin-bottom: 0px;
+  line-height: 1.25;
+}
+p.delete {
+  text-align: center;
+  color: #777;
+  padding-top: 12px;
+  margin-bottom: 0;
+  padding-bottom: 12px;
+  border-top: 2px solid #ddd;
+}
+p.delete a {
+  color: #555;
+}
+p.delete a:hover {
+  color: #222;
+}
+.user ul.shows {
+  margin-bottom: 32px;
+}
+.user ul.shows li.show img {
+  width: 60px;
+  height: 60px;
+}
+.user ul.shows li.show form {
+  margin-top: 17px;
+  margin-bottom: 0;
+  float: right;
+}
+.search li.show form {
+  margin-top: 17px;
+  margin-bottom: 0px;
+}

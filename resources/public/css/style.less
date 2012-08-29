@@ -1,0 +1,179 @@
+// Nick Sergeant Mixins
+.border-radius(@radius: 5px) {
+    -webkit-background-clip: padding-box;
+    -webkit-border-radius: @radius;
+    -moz-background-clip: padding-box;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+    background-clip: padding-box;
+}
+.box-shadow(@horizontal: 0px, @vertical: 1px, @blur: 2px, @color: #CCC) {
+  -webkit-box-shadow: @horizontal @vertical @blur @color;
+  -moz-box-shadow: @horizontal @vertical @blur @color;
+  box-shadow: @horizontal @vertical @blur @color;
+}
+.inset-box-shadow(@horizontal: 0px, @vertical: 1px, @blur: 2px, @color: #CCC) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur @color;
+  -moz-box-shadow: inset @horizontal @vertical @blur @color;
+  box-shadow: inset @horizontal @vertical @blur @color;
+}
+.multi-color-border(@top, @sides, @bottom) {
+    border-top: 1px solid @top;
+    border-left: 1px solid @sides;
+    border-right: 1px solid @sides;
+    border-bottom: 1px solid @bottom;
+}
+.multi-border-radius(@topLeft: 5px, @topRight: 5px, @bottomRight: 5px, @bottomLeft: 5px) {
+    -webkit-border-top-left-radius: @topLeft;
+    -webkit-border-top-right-radius: @topRight;
+    -webkit-border-bottom-right-radius: @bottomRight;
+    -webkit-border-bottom-left-radius: @bottomLeft;
+    -moz-border-radius-topleft: @topLeft;
+    -moz-border-radius-topright: @topRight;
+    -moz-border-radius-bottomright: @bottomRight;
+    -moz-border-radius-bottomleft: @bottomLeft;
+    border-top-left-radius: @topLeft;
+    border-top-right-radius: @topRight;
+    border-bottom-right-radius: @bottomRight;
+    border-bottom-left-radius: @bottomLeft;
+}
+.vertical-gradient(@start: #000, @stop: #FFF) {
+    background: (@start + @stop) / 2;
+    background: -webkit-gradient(linear, left top, left bottom, from(@start), to(@stop));
+    background: -moz-linear-gradient(center top, @start 0%, @stop 100%);
+    background: -moz-gradient(center top, @start 0%, @stop 100%);
+}
+
+// Utils
+.group:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+// Layout
+html {
+    overflow-y: scroll;
+}
+header {
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 48px !important;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ddd;
+}
+
+header {
+	a {
+		text-decoration: none;
+	}
+}
+
+footer {
+    text-align: center;
+    border-top: 2px solid #ddd;
+    padding-top: 16px;
+    font-style: italic;
+    font-size: 15px;
+    font-family: Palatino, Georgia, serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    a {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+input#url {
+	width: 50%;
+}
+
+section.message {
+    border-bottom: 2px solid #ddd;
+    margin-top: -26px;
+    margin-bottom: 44px;
+}
+.page-title {
+    position: relative;
+    margin-bottom: 16px;
+
+    .profile {
+        position: absolute;
+        top: -42px;
+        right: 2px;
+
+        form {
+            display: inline;
+
+            input {
+                margin-left: 12px;
+            }
+        }
+    }
+}
+li.show {
+    margin-top: 12px;
+    margin-bottom: 20px;
+
+    img {
+        float: left;
+        margin-right: 20px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        width: 100px;
+        height: 100px;
+    }
+    .latest {
+        margin-top: -6px;
+        margin-bottom: 0px;
+        line-height: 1.25;
+    }
+}
+p.delete {
+    text-align: center;
+    color: #777;
+    padding-top: 12px;
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    border-top: 2px solid #ddd;
+
+    a {
+        color: #555;
+
+        &:hover {
+            color: #222;
+        }
+    }
+}
+
+// Pages
+.user {
+    ul.shows {
+        margin-bottom: 32px;
+
+        li.show {
+            img {
+                width: 60px;
+                height: 60px;
+            }
+            form {
+                margin-top: 17px;
+                margin-bottom: 0;
+                float: right;
+            }
+        }
+    }
+}
+.search {
+    li.show {
+        form {
+            margin-top: 17px;
+            margin-bottom: 0px;
+        }
+    }
+}
