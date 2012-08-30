@@ -57,6 +57,8 @@
       [:p
        "Made by "
        (link-to "http://samrat.me" "Samrat Man Singh")
-       " from Nepal."]
+       " from Nepal. It's "
+       (link-to "https://github.com/samrat/reading-time" "open source")
+       "."]
       ]]
     ga]))
