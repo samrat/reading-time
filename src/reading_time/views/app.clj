@@ -7,6 +7,7 @@
         [clojure.string :only (split)]
         [ring.util.codec :only [url-encode url-decode]]
         [cheshire.core]
+        [hiccup.element :only [link-to]]
         hiccup.core hiccup.form))
 
 (defn extract-article [url]
@@ -50,7 +51,13 @@
               (text-field "url")
               (submit-button "Submit"))
 
-     (if time [:h4 [:strong title] " will take approximately " [:u time] " to read."])
+     (if time [:h4
+               (link-to url title)
+               " will take approximately "
+               [:strong [:u time]] " to read."
+               " Read it on " (link-to (rdd-url url) "Readability")
+               "."
+               ])
      ))
 
   (common/template
@@ -62,5 +69,5 @@
 (defpage [:get "/api"] {:keys [url callback]}
   (let [minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))]
     (if callback
-      (resp/content-type "application/javascript" (str callback "(" { :minutes minutes :readable (prettify-minutes minutes)} ")"))
+      (resp/content-type "text/javascript" (str callback "(" (generate-string {:minutes minutes :readable (prettify-minutes minutes)} ) ")"))
       (resp/json { :minutes minutes :readable (prettify-minutes minutes)}))))
