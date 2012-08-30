@@ -1,5 +1,6 @@
 (ns reading-time.views.app
   (:require [reading-time.views.common :as common]
+            [reading-time.settings :as settings]
             [noir.response :as resp]
             )
   (:use [clojurewerkz.crawlista.extraction.content]
@@ -8,6 +9,16 @@
         [ring.util.codec :only [url-encode url-decode]]
         [cheshire.core]
         hiccup.core hiccup.form))
+
+(defn scrape-article [url]
+  (let [api-url (str "http://www.diffbot.com/api/article?token=" settings/token "&url=" url)
+        parsed-json (parse-string (slurp api-url))]
+    (parsed-json "text")))
+
+(defn scrape-title [url]
+  (let [api-url (str "http://www.diffbot.com/api/article?token=" settings/token "&url=" url)
+        parsed-json (parse-string (slurp api-url))]
+    (parsed-json "title")))
 
 (defn extract-article [url]
   (if (= (subs url 0 4) "http")
@@ -22,7 +33,7 @@
 (defn count-words [text]
   (count (split text #"\s+")))
 
-(def count-words-from-url (comp count-words extract-article))
+(def count-words-from-url (comp count-words scrape-article))
 
 (defn prettify-minutes
   "Convert 1.5 into '1 minutes, 30 seconds"
@@ -33,7 +44,7 @@
   )
 
 (defpage [:get "/"] {:keys [url]}
-  (if url (let [title (get-title url)
+  (if url (let [title (scrape-title url)
         minutes  (float (/ (count-words-from-url url) 250))
         time    (prettify-minutes minutes)]
     (common/template

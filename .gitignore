@@ -1,4 +1,5 @@
 pom.xml
+src/reading_time/settings.clj
 /target
 *jar
 /lib/
