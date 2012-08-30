@@ -44,7 +44,7 @@
   )
 
 (defpage [:get "/"] {:keys [url]}
-  (if url (let [title (scrape-title url)
+  (if url (let [title (get-title url)
         minutes  (float (/ (count-words-from-url url) 250))
         time    (prettify-minutes minutes)]
     (common/template
