@@ -1,6 +1,5 @@
 (ns reading-time.views.app
   (:require [reading-time.views.common :as common]
-            [reading-time.settings :as settings]
             [noir.response :as resp]
             )
   (:use [clojurewerkz.crawlista.extraction.content]
@@ -10,30 +9,28 @@
         [cheshire.core]
         hiccup.core hiccup.form))
 
-(defn scrape-article [url]
-  (let [api-url (str "http://www.diffbot.com/api/article?token=" settings/token "&url=" url)
-        parsed-json (parse-string (slurp api-url))]
-    (parsed-json "text")))
-
-(defn scrape-title [url]
-  (let [api-url (str "http://www.diffbot.com/api/article?token=" settings/token "&url=" url)
-        parsed-json (parse-string (slurp api-url))]
-    (parsed-json "title")))
-
 (defn extract-article [url]
-  (if (= (subs url 0 4) "http")
-    (extract-text (slurp url))
-    (extract-text (slurp (str "http://" url)))))
-
+  (extract-text (slurp url)))
+  
 (defn get-title [url]
-  (if (= (subs url 0 4) "http")
-    (extract-title(slurp url))
-    (extract-title (slurp (str "http://" url)))))
-
+  (extract-title (slurp url)))
+  
 (defn count-words [text]
   (count (split text #"\s+")))
 
-(def count-words-from-url (comp count-words scrape-article))
+(defn rdd-url
+  "Leverage Readability view in order to ease the article extraction."
+  [url]
+  (str "http://www.readability.com/m?url=" url))
+
+(defn httpify-url
+  "Add http:// to url if not present"
+  [url]
+  (if (= (subs url 0 4) "http")
+    url
+    (str "http://" url)))
+
+(def count-words-from-url (comp count-words extract-article))
 
 (defn prettify-minutes
   "Convert 1.5 into '1 minutes, 30 seconds"
@@ -44,9 +41,9 @@
   )
 
 (defpage [:get "/"] {:keys [url]}
-  (if url (let [title (get-title url)
-        minutes  (float (/ (count-words-from-url url) 250))
-        time    (prettify-minutes minutes)]
+  (if url (let [title   (get-title (httpify-url url))
+                minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))
+                time    (prettify-minutes minutes)]
     (common/template
      (if-not time [:h4 "Give it a try. Put in an article URL below."] [:h4 "Article URL:"] )
      (form-to [:get "/"]
@@ -63,5 +60,5 @@
               (submit-button "Submit")))))
 
 (defpage [:get "/api"] {:keys [url]}
-  (let [minutes (float (/ (count-words-from-url url) 250))]
+  (let [minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))]
   (resp/json {:readable (prettify-minutes minutes) :minutes minutes})))
