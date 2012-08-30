@@ -37,7 +37,7 @@
   "Convert 1.5 into '1 minutes, 30 seconds"
   [minutes]
   (if (< minutes 1)
-    (str (* 60 minutes) " seconds")
+    (str (int (* 60 minutes)) " seconds")
     (str (int minutes) " minutes, " (int (* 60 (rem minutes (int minutes)))) " seconds")) 
   )
 
