@@ -59,6 +59,8 @@
               (text-field "url")
               (submit-button "Submit")))))
 
-(defpage [:get "/api"] {:keys [url]}
+(defpage [:get "/api"] {:keys [url callback]}
   (let [minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))]
-  (resp/json {:readable (prettify-minutes minutes) :minutes minutes})))
+    (if callback
+      (resp/content-type "application/javascript" (str callback "(" { :minutes minutes :readable (prettify-minutes minutes)} ")"))
+      (resp/json { :minutes minutes :readable (prettify-minutes minutes)}))))
