@@ -1,5 +1,6 @@
 (defproject reading-time "0.1.0-SNAPSHOT"
             :description "Reading Time"
+            :min-lein-version "2.0.0"
             :dependencies [[org.clojure/clojure "1.4.0"]
                            [clojurewerkz/crawlista "1.0.0-alpha17"]
                            [cheshire "4.0.2"]
