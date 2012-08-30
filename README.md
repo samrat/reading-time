@@ -11,6 +11,10 @@ lein deps
 lein run
 ```
 
+## Credits
+
+The app is hosted on a free Heroku instance and uses the [Skeleton CSS][http://getskeleton.com] framework(with styles from [Steve Losh][http://stevelosh.com]'s [New Seasons][http://newseasons.stevelosh.com] app).
+
 ## License
 
 Copyright (C) 2012 Samrat Man Singh, MIT Licensed
