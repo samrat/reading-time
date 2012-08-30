@@ -13,8 +13,12 @@ lein run
 
 ## Credits
 
-The app is hosted on a free Heroku instance and uses the [Skeleton CSS][http://getskeleton.com] framework(with styles from [Steve Losh][http://stevelosh.com]'s [New Seasons][http://newseasons.stevelosh.com] app).
+The app is hosted on a free Heroku instance and uses the [Skeleton CSS][1] framework(with styles from [Steve Losh][2]'s [New Seasons][3] app).
 
 ## License
 
 Copyright (C) 2012 Samrat Man Singh, MIT Licensed
+
+[1]: http://getskeleton.com
+[2]: http://stevelosh.com
+[3]: http://newseasons.stevelosh.com
