@@ -45,7 +45,8 @@
                       "/css/layout.css"])
     (include-less "/css/style.less")
     (include-js "/js/less.js")
-    [:title "Reading Time"]]
+    [:title "Reading Time"]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1, maximum-scale=1"}]]
    [:body
     fb-like
     [:div.container.clearfix
