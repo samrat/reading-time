@@ -69,5 +69,5 @@
 (defpage [:get "/api"] {:keys [url callback]}
   (let [minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))]
     (if callback
-      (resp/content-type "text/javascript" (str callback "(" (generate-string {:minutes minutes :readable (prettify-minutes minutes)} ) ")"))
-      (resp/json { :minutes minutes :readable (prettify-minutes minutes)}))))
+      (resp/content-type "text/javascript" (str callback "(" (generate-string {:title (get-title (httpify-url url)) :url url :minutes minutes :readable (prettify-minutes minutes)} ) ")"))
+      (resp/json {:title (get-title (httpify-url url)) :url url :minutes minutes :readable (prettify-minutes minutes)}))))
