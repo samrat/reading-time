@@ -66,7 +66,7 @@
               (text-field "url")
               (submit-button "Submit")))))
 
-(defpage [:get "/api"] {:keys [url callback] :as params}
+(defpage [:get "/api"] {:keys [url callback]}
   ( if url (let [minutes (float (/ (count-words-from-url (rdd-url (httpify-url url))) 250))]
              (if callback
                (resp/content-type "text/javascript" (str callback "(" (generate-string {:title (get-title (httpify-url url)) :url url :minutes minutes :readable (prettify-minutes minutes)} ) ")"))
@@ -83,9 +83,9 @@
          [:br]
          [:code "{'title':'A geek with a hat » Services I want to pay for','url':'http://swizec.com/blog/services-i-want-to-pay-for/swizec/5158','minutes':1.7799999713897705,'readable':'1 minutes, 46 seconds'}"]
          [:br] [:br]
-        "You can also send a callback function as a parameter:" [:br]
-        [:code "$ curl http://reading-time.samrat.me/api?url=http://swizec.com/blog/services-i-want-to-pay-for/swizec/5158&callback=?"]
-        [:br]
+         "You can also send a callback function as a parameter:" [:br]
+         [:code "$ curl http://reading-time.samrat.me/api?url=http://swizec.com/blog/services-i-want-to-pay-for/swizec/5158&callback=?"]
+         [:br]
          [:code "?({'title':'A geek with a hat » Services I want to pay for','url':'http://swizec.com/blog/services-i-want-to-pay-for/swizec/5158','minutes':1.7799999713897705,'readable':'1 minutes, 46 seconds'})"]
          [:br] [:br]
          "For a detailed tutorial on how to embed Reading Time to your website with some jQuery, " (link-to "http://samrat.me/blog/2012/08/how-to-add-reading-time-to-your-website-or-blog" "read this blog post.") ])))
