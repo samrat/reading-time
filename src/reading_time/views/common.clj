@@ -51,7 +51,7 @@
     fb-like
     [:div.container.clearfix
      [:header.sixteen.columns ( link-to "/" [:h1 "Reading Time"] )
-      [:h4 [:strong "Reading Time"] " estimates how long you'll take to read an online article. It has an " (link-to "http://samrat.me/blog/2012/08/how-to-add-reading-time-to-your-website-or-blog/" "API too") "(so you can put it on your blog!)"]
+      [:h4 [:strong "Reading Time"] " estimates how long you'll take to read an online article. It has an " (link-to "/api" "API too") "(so you can put it on your blog!)"]
       tweet fb-button]
      [:div.eleven.columns content]
      [:div.five.columns
