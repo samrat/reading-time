@@ -1,1 +1,1 @@
-web: lein run :mode prod
+web: lein run
