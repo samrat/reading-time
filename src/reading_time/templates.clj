@@ -1,4 +1,4 @@
-(ns reading-time.views.common
+(ns reading-time.templates
   (:use [noir.core :only [defpartial]]
         [hiccup.page :only [include-css html5 include-js]]
         [hiccup.element :only [link-to]]))
@@ -13,7 +13,7 @@
 
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-34425817-1']);
-        _gaq.push(['_setDomainName', 'reading-time.samrat.me']);
+        _gaq.push(['_setDomainName', 'reading-time.smingh.org']);
         _gaq.push(['_trackPageview']);
 
         (function() {
@@ -24,7 +24,7 @@
 
   </script>")
 
-(def tweet "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://reading-time.samrat.me\" data-text=\"Find out how long you'll take it to read an article or add &quot;Reading time&quot; to your site!\" data-related=\"samratmansingh\">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"//platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>")
+(def tweet "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://reading-time.smingh.org\" data-text=\"Find out how long you'll take it to read an article or add &quot;Reading time&quot; to your site!\" data-related=\"samratmansingh\">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"//platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>")
 
 (def fb-like "<div id=\"fb-root\"></div>
 <script>(function(d, s, id) {
@@ -65,7 +65,7 @@
      [:footer.sixteen.columns
       [:p
        "Made by "
-       (link-to "http://samrat.me" "Samrat Man Singh")
+       (link-to "http://smingh.org" "Samrat Man Singh")
        " from Nepal. It's "
        (link-to "https://github.com/samrat/reading-time" "open source")
        "."]
