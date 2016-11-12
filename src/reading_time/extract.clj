@@ -1,6 +1,6 @@
 (ns reading-time.extract
   (:require [clojure.string :as cs])
-  (:import (org.jsoup Jsoup Connection)))
+  (:import (org.jsoup Jsoup Connection HttpStatusException)))
 
 (defn extract-article [url]
   (.text (.get (org.jsoup.Jsoup/connect url))))
@@ -30,12 +30,14 @@
 
 (defn get-info
   [url]
-  (let [doc (.get (org.jsoup.Jsoup/connect (httpify-url url)))
-        text (.text doc)
-        title (.title doc)
-        num-words (count-words text)
-        mins-to-read (float (/ num-words 250))]
-    {:title title
-     :reading-time (prettify-minutes mins-to-read)
-     :mins-to-read mins-to-read
-     :num-words (count-words text)}))
+  (try (let [doc (.get (org.jsoup.Jsoup/connect (httpify-url url)))
+             text (.text doc)
+             title (.title doc)
+             num-words (count-words text)
+             mins-to-read (float (/ num-words 250))]
+         {:title title
+          :reading-time (prettify-minutes mins-to-read)
+          :mins-to-read mins-to-read
+          :num-words (count-words text)})
+       (catch Exception e
+         {:error :url-fetch-failed})))

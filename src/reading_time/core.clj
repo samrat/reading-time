@@ -15,14 +15,17 @@
   (GET "/" {query-params :query-params}
        (let [url (get query-params "url")]
          (when url
-           (let [{:keys [title reading-time]} (rte/get-info url)]
+           (let [{:keys [title reading-time error]} (rte/get-info url)]
              (rtt/template
-              (when-not reading-time
-                [:h4 "Give it a try. Put in an article URL below."] [:h4 "Article URL:"] )
+              (when (= error :url-fetch-failed)
+                [:div [:h4 "Error fetching URL: " [:a {:href url} url]]
+                 [:br]])
+              (if-not reading-time
+                [:h4 "Give it a try. Put in an article URL below."]
+                [:h4 "Article URL:"] )
               (form-to [:get "/"]
                        (text-field "url")
                        (submit-button "Submit"))
-
               (when reading-time
                 [:h4
                  [:a {:href url} title]
@@ -70,6 +73,6 @@
 
   (route/resources "/"))
 
-(defn -main []
-  (let [port (Integer. (get (System/getenv) "PORT" "8080"))]
+(defn -main [& m]
+  (let [port (Integer. (get (System/getenv) "PORT" "9000"))]
     (run-server (wrap-params #'app) {:port port})))
