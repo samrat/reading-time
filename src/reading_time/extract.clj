@@ -30,7 +30,8 @@
 
 (defn get-info
   [url]
-  (try (let [doc (.get (org.jsoup.Jsoup/connect (httpify-url url)))
+  (try (let [sanitized-url (httpify-url url)
+             doc (.get (org.jsoup.Jsoup/connect sanitized-url))
              text (.text doc)
              title (.title doc)
              num-words (count-words text)
@@ -38,6 +39,7 @@
          {:title title
           :reading-time (prettify-minutes mins-to-read)
           :mins-to-read mins-to-read
-          :num-words (count-words text)})
+          :num-words (count-words text)
+          :sanitized-url sanitized-url})
        (catch Exception e
          {:error :url-fetch-failed})))

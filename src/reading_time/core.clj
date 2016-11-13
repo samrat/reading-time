@@ -15,10 +15,13 @@
   (GET "/" {query-params :query-params}
        (let [url (get query-params "url")]
          (when url
-           (let [{:keys [title reading-time error]} (rte/get-info url)]
+           (let [{:keys [title
+                         reading-time
+                         sanitized-url
+                         error]} (rte/get-info url)]
              (rtt/template
               (when (= error :url-fetch-failed)
-                [:div [:h4 "Error fetching URL: " [:a {:href url} url]]
+                [:div [:h4 "Error fetching URL: " [:a {:href sanitized-url} sanitized-url]]
                  [:br]])
               (if-not reading-time
                 [:h4 "Give it a try. Put in an article URL below."]
@@ -28,7 +31,7 @@
                        (submit-button "Submit"))
               (when reading-time
                 [:h4
-                 [:a {:href url} title]
+                 [:a {:href sanitized-url} title]
                  " will take approximately "
                  [:strong [:u reading-time]] " to read."]))))))
   (GET "/" [] (rtt/template
@@ -40,18 +43,18 @@
   (GET "/api" {query-params :query-params}
        (let [{:strs [url callback]} query-params]
          (if url
-           (let [{:keys [title reading-time mins-to-read]} (rte/get-info url)]
+           (let [{:keys [title reading-time mins-to-read sanitized-url]} (rte/get-info url)]
              (if callback
                {:status 200
                 :headers {"Content-Type" "text/javascript"}
                 :body (str callback "(" (json/write-str {:title title
-                                                         :url url
+                                                         :url sanitized-url
                                                          :minutes mins-to-read
                                                          :readable reading-time}) ")")}
                {:status 200
                 :headers {"Content-Type" "application/json"}
                 :body (json/write-str {:title title
-                                       :url url
+                                       :url sanitized-url
                                        :minutes mins-to-read
                                        :readable reading-time})}))
 
